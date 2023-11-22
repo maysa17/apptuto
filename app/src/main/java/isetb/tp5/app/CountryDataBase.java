@@ -1,5 +1,6 @@
 package isetb.tp5.app;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +21,7 @@ public class CountryDataBase extends SQLiteOpenHelper {
             + CID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + CNAME + " VARCHAR(20) NOT NULL, "
             + CIMAGE + " BLOB)";
+    private SQLiteDatabase db;
     public CountryDataBase(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -39,6 +41,14 @@ public class CountryDataBase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
+    public boolean addcountry(Country c){
+        ContentValues values=new ContentValues();
+        values.put(CNAME,c.getName());
+        values.put(CIMAGE,c.getImage());
+        long x=db.insert(TCountry,null,values);
+        return x!=-1;
 
     }
 }
